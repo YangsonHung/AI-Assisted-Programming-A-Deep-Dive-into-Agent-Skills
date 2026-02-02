@@ -1,0 +1,148 @@
+{
+  "pages": [
+    {
+      "number": 1,
+      "type": "cover",
+      "title": "AI编程辅助开发：深入探索Agent Skills",
+      "content": "从执行者到指挥者的角色进化"
+    },
+    {
+      "number": 2,
+      "type": "table_of_contents",
+      "title": "目录",
+      "content": "一、AI编程认知基础；二、Agent Skills核心概念；三、Agent Skills实战应用；四、最佳实践与未来展望"
+    },
+    {
+      "number": 3,
+      "type": "chapter",
+      "title": "第一章：AI编程认知基础",
+      "content": "理解AI辅助编程的本质与必要性"
+    },
+    {
+      "number": 4,
+      "type": "content",
+      "title": "传统编程开发的痛点",
+      "content": "分析传统编程中上下文切换成本高、知识传递效率低、开发流程割裂三大核心问题，揭示开发者面临的实际困境"
+    },
+    {
+      "number": 5,
+      "type": "content",
+      "title": "传统编程 vs AI编程",
+      "content": "对比两种编程范式在交互方式、代码来源、知识依赖、问题解决等维度的差异，阐述从执行者到指挥者的角色转变"
+    },
+    {
+      "number": 6,
+      "type": "content",
+      "title": "AI编程辅助开发的必要性",
+      "content": "从个人、团队、业务、行业四个层面分析AI编程为何成为必然选择，展示其价值金字塔"
+    },
+    {
+      "number": 7,
+      "type": "content",
+      "title": "人机协作的新型开发范式",
+      "content": "介绍设计对话流的三个关键点和提示词明确四件事，阐述如何与AI有效协作"
+    },
+    {
+      "number": 8,
+      "type": "content",
+      "title": "计划模式(Plan Mode)与SDD",
+      "content": "讲解Plan模式三步法和规范驱动开发(SDD)的四阶段流程，解决实现逻辑不完整、接口不一致等问题"
+    },
+    {
+      "number": 9,
+      "type": "content",
+      "title": "AI编程的局限性与挑战",
+      "content": "分析需求表达不完整、上下文管理混乱、迭代反馈滞后三类核心问题及应对策略"
+    },
+    {
+      "number": 10,
+      "type": "content",
+      "title": "AI编程能力图谱",
+      "content": "展示纵向深度与横向广度两个维度的能力发展路径，从Prompt能力到Agent使用，再到工作流封装"
+    },
+    {
+      "number": 11,
+      "type": "chapter",
+      "title": "第二章：Agent Skills核心概念",
+      "content": "深入理解Agent Skills的定义、价值与技术体系"
+    },
+    {
+      "number": 12,
+      "type": "content",
+      "title": "什么是Agent Skills",
+      "content": "定义Agent Skills为可复用的AI能力模块，阐述其封装专业知识、提供工作流模板、扩展AI能力、团队协作共享四大价值"
+    },
+    {
+      "number": 13,
+      "type": "content",
+      "title": "技术对比：Prompt vs Skills vs MCP",
+      "content": "对比三种核心技术的定位、抽象层级、作用范围、持久化等维度，理解它们的协同关系"
+    },
+    {
+      "number": 14,
+      "type": "content",
+      "title": "Agent Skills标准规范",
+      "content": "详解Skills的目录结构、SKILL.md文件格式、以及scripts、references、assets三个可选目录的作用"
+    },
+    {
+      "number": 15,
+      "type": "chapter",
+      "title": "第三章：Agent Skills实战应用",
+      "content": "从资源获取到创建实践，再到IDE集成"
+    },
+    {
+      "number": 16,
+      "type": "content",
+      "title": "优质Agent Skills资源获取",
+      "content": "介绍Skills MP技能市场、官方仓库、社区资源站点，以及Claude Code和Cursor中的安装方法"
+    },
+    {
+      "number": 17,
+      "type": "content",
+      "title": "Agent Skills创建实践",
+      "content": "讲解手写Skills入门的最小结构，以及使用skill-creator工具快速生成标准化结构的方法"
+    },
+    {
+      "number": 18,
+      "type": "content",
+      "title": "前端框架Skills案例",
+      "content": "展示React和Vue官方Skills的核心内容、最佳实践规则和创建要点"
+    },
+    {
+      "number": 19,
+      "type": "content",
+      "title": "IDE集成：从提示词到Skills",
+      "content": "介绍CodeBuddy、Codex、Claude Code等工具中的Skills集成方式"
+    },
+    {
+      "number": 20,
+      "type": "content",
+      "title": "精选Agent Skills推荐",
+      "content": "推荐skill-creator、frontend-design、superpowers等官方Skills，详解其定位和适用场景"
+    },
+    {
+      "number": 21,
+      "type": "chapter",
+      "title": "第四章：最佳实践与未来展望",
+      "content": "掌握方法，预见趋势"
+    },
+    {
+      "number": 22,
+      "type": "content",
+      "title": "企业落地路径",
+      "content": "介绍探索阶段、建设阶段、规模化阶段的三步走策略，以及避坑指南"
+    },
+    {
+      "number": 23,
+      "type": "content",
+      "title": "未来发展趋势",
+      "content": "分析技术演进方向、程序员角色转变、行业影响，展示AI编程时代的核心能力迁移"
+    },
+    {
+      "number": 24,
+      "type": "final",
+      "title": "Q&A与结语",
+      "content": "AI编程时代已经到来。Agent Skills是连接人类智慧与AI能力的桥梁。掌握Skills，就是掌握AI时代的生产力工具。"
+    }
+  ]
+}
