@@ -39,7 +39,7 @@
 
 传统编程中，开发者需要同时扮演"架构师"和"码农"的角色，既要设计方案，又要手动实现。而 AI 编程重新定义了这种分工——开发者转向需求理解、方案设计和代码审查，将重复性编码工作交由 AI 完成。这种转变不是能力的弱化，而是从"执行者"向"指挥者"的角色进化。
 
-#### 传统编程开发流程
+#### 1.2.1 传统编程开发流程
 
 ```mermaid
 flowchart LR
@@ -57,7 +57,7 @@ flowchart LR
     style F fill:#e1f5fe,stroke:#01579b
 ```
 
-#### AI 编程开发流程
+#### 1.2.2 AI 编程开发流程
 
 ```mermaid
 flowchart LR
@@ -88,7 +88,7 @@ flowchart LR
 - AI 编程中，**自然语言描述**和**AI 代码生成**（绿色）替代了手动编码，开发者聚焦于**审查优化**（橙色）
 - AI 编程引入迭代反馈机制：代码可快速生成、评估、调整，形成"生成→审查→反馈→优化"的敏捷循环
 
-#### AI 编程的八个阶段
+#### 1.2.3 AI 编程的八个阶段
 
 美国著名程序员（前谷歌、亚马逊软件工程师）Steve Yegge（史蒂夫·耶奇）在2026年1月2号个人博客 Welcome to Gas Town 里提出 AI 编程有 8 级。
 
@@ -157,7 +157,7 @@ AI 可以快速生成多个方案供选择，降低了「想清楚再动手」�
 
 每一次重大技术革新（汇编 → 高级语言 → 面向对象 → 互联网）都带来生产力跃升。AI 编程正成为下一个变革节点，早期掌握者将获得显著竞争优势。
 
-#### AI 编程辅助开发的四层价值
+#### 1.3.5 AI 编程辅助开发的四层价值
 
 ```mermaid
 flowchart TD
@@ -284,6 +284,55 @@ Plan模式使用三步法分解需求：
 
 ![0](./img/4.png)
 
+#### 1.4.3 规范驱动开发 SDD：Spec-Driven Development
+
+**核心问题：为什么 AI 生成的代码"看起来对，但跑不通"？**
+
+当 AI 直接根据自然语言描述生成代码时，经常会出现理解偏差——它可能忽略边界条件、使用错误的技术栈，或者生成与现有架构冲突的代码。SDD（Spec-Driven Development，规范驱动开发）正是为了解决这一问题而生的开发范式。
+
+**什么是 SDD：规范即契约**
+
+SDD 是一种"意图优先"的开发方法：开发者先编写详细的规范文档（Spec），将需求、约束、验收标准明确下来，然后让 AI 基于这份规范生成代码。
+
+> 传统开发：需求 → 编码 → 测试
+> SDD：规范 → 计划 → 任务 → 实现
+
+规范成为"唯一的真相源"，代码只是规范在特定技术栈中的表达形式。这种方式将"需求理解"与"代码实现"解耦——人类专注于"做什么"，AI 负责"怎么做"。
+
+SDD 提示词：分析需求 (spec)，列出计划 (plan)，规划任务 (task)，让我确认，再开始执行 (implement)
+
+**SDD 的四阶段流程**
+
+| 阶段 | 核心动作 | 开发者角色 | AI 角色 |
+|------|----------|------------|---------|
+| **Specify（规范）** | 描述目标用户、问题和成功标准 | 定义需求边界 | 生成详细 PRD |
+| **Plan（计划）** | 提供技术栈、架构约束 | 技术决策把关 | 输出实现方案 |
+| **Tasks（分解）** | 将计划拆分为可执行单元 | 调整优先级 | 生成任务列表 |
+| **Implement（实现）** | 逐任务生成代码 | 审核与验收 | 编码与测试 |
+
+关键原则：**每阶段必须验证通过才能进入下一阶段**。这避免了"生成一堆代码后才发现方向错误"的浪费。
+
+**SDD 能解决什么问题**
+
+1. **减少理解偏差**：规范文档作为"契约"，让 AI 有明确参照
+2. **控制技术债务**：通过宪法（Constitution）约束，强制最佳实践
+3. **提升可维护性**：规范与代码同步演进，成为活文档
+4. **加速团队协作**：规范是跨角色（产品、开发、测试）的共同语言
+
+**实践建议**
+
+- 规范聚焦"做什么"和"为什么"，而非"怎么做"的技术细节
+- 使用结构化模板约束 AI，防止过早陷入实现细节
+- 将团队编码规范、架构原则固化为"宪法"文件，让 AI 严格遵守
+- 把规范视为"活文档"，随项目演进持续更新
+
+阅读链接：
+
+- [AI 時代一定要學會使用 GitHub Spec Kit SDD 規格驅動開發](https://milkmidi.medium.com/ai-%E6%99%82%E4%BB%A3-%E4%B8%80%E5%AE%9A%E8%A6%81%E5%AD%B8%E6%9C%83%E4%BD%BF%E7%94%A8-github-spec-kit-sdd-%E8%A6%8F%E6%A0%BC%E9%A9%85%E5%8B%95%E9%96%8B%E7%99%BC-f2df57cfdf3c)
+- [规范驱动开发 SDD 全解：从理念到实践（翻译）](https://blog.dengqi.org/posts/%E8%A7%84%E8%8C%83%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91sdd%E5%85%A8%E8%A7%A3%E4%BB%8E%E7%90%86%E5%BF%B5%E5%88%B0%E5%AE%9E%E8%B7%B5%E7%BF%BB%E8%AF%91/)
+- [Spec-driven development with AI: Get started with a new open-source toolkit](https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with-ai-get-started-with-a-new-open-source-toolkit/)
+- [GitHub Spec Kit 官方仓库](https://github.com/github/spec-kit?tab=readme-ov-file#-what-is-spec-driven-development)
+
 ### 1.5 AI 编程的局限性与挑战
 
 AI 编程虽然强大，但并非万能。开发者在实际使用中常遇到以下三类核心问题：
@@ -316,7 +365,7 @@ AI 编程虽然强大，但并非万能。开发者在实际使用中常遇到�
 | 上下文管理混乱 | 控制单次对话粒度，定期回顾设计决策，使用 CLAUDE.md 传递上下文 |
 | 迭代反馈滞后 | 先让 AI 生成接口定义和框架，确认后再实现细节，避免一次性生成完整代码 |
 
-#### 依赖 AI 编程的的威危害
+#### 1.5.4 依赖 AI 编程的危害
 
 用 AI 辅助写代码，会不会让程序员变得更菜？
 
@@ -326,7 +375,7 @@ Anthropic 官方博客：<https://www.anthropic.com/research/AI-assistance-codin
 
 ### 1.6 AI 编程能力图谱：纵向深度与横向广度
 
-纵向看：
+#### 1.6.1 纵向看
 
 - 3年前向 ChatGPT 提问代码，再把他的回答粘贴到 IDE
 
@@ -346,7 +395,7 @@ Anthropic 官方博客：<https://www.anthropic.com/research/AI-assistance-codin
 
 只有掌握了上述能力，才能在“约束明确的项目”中，描述“定义清晰的任务”。而这是全托管模式下 AI 能顺利完成任务的先决条件。
 
-横向看：
+#### 1.6.2 横向看
 
 - 3年前了解了 Function Call、Tool use，这是接口
 
@@ -540,7 +589,52 @@ compatibility: 环境要求               # 可选（极少需要）
 
 ### 3.1 优质 `Agent Skills` 资源获取
 
-<https://skillsmp.com/>
+#### Skills MP 技能市场
+
+[Skills MP](https://skillsmp.com/) 是 Agent Skills 的专门资源站点，类似技能的"应用商店"。
+
+**主要功能**：
+
+| 功能 | 说明 |
+|------|------|
+| **技能搜索** | 支持按关键词、分类、标签筛选技能 |
+| **技能详情** | 查看技能描述、使用示例、作者信息 |
+| **一键安装** | 复制安装命令直接导入 Claude Code/Cursor |
+| **社区评分** | 参考其他用户的评价和使用反馈 |
+
+**使用流程**：
+
+1. **搜索技能**：输入关键词（如 "git", "frontend", "database"）
+2. **筛选结果**：按热度、更新时间、评分排序
+3. **查看详情**：阅读 SKILL.md 了解功能和使用方法
+4. **安装使用**：复制安装命令到 Claude Code 执行
+
+#### 推荐资源站点
+
+| 站点 | 链接 | 特点 |
+|------|------|------|
+| **Skills MP** | <https://skillsmp.com/> | 技能市场，分类清晰，便于搜索 |
+| **Everything Claude Code** | <https://github.com/affaan-m/everything-claude-code> | 社区整理的资源合集 |
+| **Anthropic 官方** | <https://github.com/anthropics/skills> | 官方维护的标准技能 |
+
+#### 技能安装方法
+
+**Claude Code**：
+
+```bash
+# 方法1：直接使用 /skill 命令
+/skill skill-name
+
+# 方法2：本地安装
+git clone https://github.com/xxx/skill-name.git ~/.claude/skills/skill-name
+```
+
+**Cursor**：
+
+```bash
+# 将技能文件放入 Cursor 配置目录
+cp -r skill-name ~/.cursor/skills/
+```
 
 ### 3.2 `Agent Skills` 创建实践
 
@@ -809,7 +903,37 @@ capabilities:
 
 #### 3.4.1 IDE 集成：`CodeBuddy` 使用指南
 
+![10](./img/10.jpg)
+
+CodeBuddy 地址：
+
+国际站点：<https://www.codebuddy.ai/cli>
+
+国内站点：<https://www.codebuddy.cn/>
+
+在 IDE 中 导入下载的 skills
+
+![9](./img/9.jpg)
+
 #### 3.4.2 `CLI` 集成：`Codex/Claude Code` 实战
+
+##### Codex
+
+skills 位于用户目录下的 `~/.codex/skills`
+
+![12](./img/12.jpg)
+
+![11](./img/11.jpg)
+
+![13](./img/13.jpg)
+
+##### Claude Code
+
+skills 位于用户目录下的 `~/.claude/skills`
+
+![14](./img/14.jpg)
+
+![15](./img/15.jpg)
 
 ### 3.5 精选 `Agent Skills` 推荐与分享
 
@@ -852,12 +976,6 @@ capabilities:
 - **工程实践**：强制 TDD（测试驱动开发）
 - **附加能力**：代码审查、系统化调试、Git Worktree 管理等十几个子 Skills
 - **适用人群**：觉得 Claude Code 写代码太"莽"的同学
-
-#### 3.5.3 更多资源
-
-- [Agent Skills 官方主页](https://agentskills.io/home)
-- [Skills MP](https://skillsmp.com/)
-- [Anthropic Skills 仓库](https://github.com/anthropics/skills)
 
 ## 四、总结与展望
 
@@ -956,6 +1074,10 @@ Level 4: Agent 驱动（Skills + MCP + 自动化工作流）
 
 A：不会。AI 是工具，不是替代者。AI 擅长执行重复任务，但需求理解、架构设计、代码审查仍需人类。未来的优秀程序员是那些能驾驭 AI 的人。
 
+可以把AI编程理解为机器生产，程序员从农业时代手工生产进入农业机器生产时代，产出代码还是那些人，只不过生产方式变更，生产效率提高。代码出身的程序员天然比其他非程序员能更好的驾驭 AI 这个生产机器，所以不用担心程序员会被替代，但是机器的出现，不再需要非常多的程序员，换句话说，对程序员的能力要求更高。
+
+未来的程序员编码演变趋势是：传统的手工搓代码场景将逐渐减少，程序员角色的工作会更多承担测试，维护，设计，架构等动作。系统80%以上代码将由一套清晰明确的编码说明书，业务实现说明书让 LLM 按照确定的规格生成代码，其中出现的一些 LLM 不好处理的问题将由程序员排查，反馈，解决。
+
 **Q2：如何选择 AI 编程工具？**
 
 A：根据团队需求：
@@ -972,16 +1094,7 @@ A：建议顺序：
 2. 再学习 Skills（提升复用性）
 3. 最后了解 MCP（深度集成外部工具）
 
-**Q4：如何说服团队采用 AI 编程？**
-
-A：从痛点入手：
-
-- 展示效率提升（用实际项目对比）
-- 提供培训支持（降低学习成本）
-- 建立规范（打消质量顾虑）
-- 小范围试点（验证效果后再推广）
-
-**Q5：个人如何持续学习？**
+**Q4：个人如何持续学习？**
 
 A：
 
