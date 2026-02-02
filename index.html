@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI 编程辅助开发：Agent Skills 技术分享">
+    <title>AI 编程辅助开发：Agent Skills 技术分享</title>
+    
+    <!-- RevealJS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts - Noto Sans SC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           Design System - AI Tech Presentation
+           Style: Modern Dark Tech with Gradients
+           ============================================ */
+        
+        :root {
+            /* Primary Color Palette - Deep Tech Purple/Blue */
+            --color-primary-50: #f5f3ff;
+            --color-primary-100: #ede9fe;
+            --color-primary-200: #ddd6fe;
+            --color-primary-300: #c4b5fd;
+            --color-primary-400: #a78bfa;
+            --color-primary-500: #8b5cf6;
+            --color-primary-600: #7c3aed;
+            --color-primary-700: #6d28d9;
+            --color-primary-800: #5b21b6;
+            --color-primary-900: #4c1d95;
+            
+            /* Accent Colors */
+            --color-accent-cyan: #06b6d4;
+            --color-accent-pink: #ec4899;
+            --color-accent-amber: #f59e0b;
+            --color-accent-emerald: #10b981;
+            --color-accent-rose: #f43f5e;
+            
+            /* Neutral Scale */
+            --color-slate-50: #f8fafc;
+            --color-slate-100: #f1f5f9;
+            --color-slate-200: #e2e8f0;
+            --color-slate-300: #cbd5e1;
+            --color-slate-400: #94a3b8;
+            --color-slate-500: #64748b;
+            --color-slate-600: #475569;
+            --color-slate-700: #334155;
+            --color-slate-800: #1e293b;
+            --color-slate-900: #0f172a;
+            --color-slate-950: #020617;
+            
+            /* Gradients */
+            --gradient-hero: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            --gradient-accent: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
+            --gradient-warm: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            --gradient-glow: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            
+            /* Typography */
+            --font-family-primary: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-weight-light: 300;
+            --font-weight-regular: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --font-weight-black: 900;
+            
+            /* Spacing Scale */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-20: 5rem;
+            --space-24: 6rem;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.3);
+            --shadow-glow-cyan: 0 0 40px rgba(6, 182, 212, 0.3);
+            
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+            
+            /* Animation */
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 350ms ease;
+            --transition-slower: 500ms ease;
+        }
+
+        /* ============================================
+           Base Styles
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-family-primary);
+            background: var(--color-slate-950);
+            color: var(--color-slate-100);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           RevealJS Customization
+           ============================================ */
+        .reveal {
+            font-family: var(--font-family-primary);
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        .reveal .slides section {
+            padding: var(--space-8);
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Typography Hierarchy */
+        .reveal h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: var(--font-weight-black);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--space-6);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reveal h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: var(--font-weight-bold);
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            margin-bottom: var(--space-6);
+            color: var(--color-slate-50);
+        }
+
+        .reveal h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: var(--font-weight-semibold);
+            line-height: 1.3;
+            margin-bottom: var(--space-4);
+            color: var(--color-slate-100);
+        }
+
+        .reveal h4 {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: var(--font-weight-semibold);
+            line-height: 1.4;
+            margin-bottom: var(--space-3);
+            color: var(--color-slate-200);
+        }
+
+        .reveal p {
+            font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+            line-height: 1.75;
+            color: var(--color-slate-300);
+            margin-bottom: var(--space-4);
+        }
+
+        .reveal ul, .reveal ol {
+            margin-left: var(--space-6);
+            margin-bottom: var(--space-4);
+        }
+
+        .reveal li {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            line-height: 1.8;
+            color: var(--color-slate-300);
+            margin-bottom: var(--space-2);
+        }
+
+        /* ============================================
+           Cover Slide
+           ============================================ */
+        .cover-slide {
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .cover-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cover-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+        }
+
+        .cover-icon {
+            font-size: clamp(3rem, 8vw, 5rem);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--space-6);
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .cover-slide h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: var(--font-weight-black);
+            color: white;
+            -webkit-text-fill-color: white;
+            margin-bottom: var(--space-4);
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cover-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: var(--font-weight-light);
+            color: var(--color-slate-300);
+            margin-bottom: var(--space-12);
+            letter-spacing: 0.05em;
+        }
+
+        .cover-meta {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-8);
+            flex-wrap: wrap;
+        }
+
+        .cover-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 1rem;
+            color: var(--color-slate-400);
+        }
+
+        .cover-meta-item i {
+            color: var(--color-accent-cyan);
+        }
+
+        /* ============================================
+           Section Headers
+           ============================================ */
+        .section-header {
+            background: var(--color-slate-900);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-glow);
+            opacity: 0.5;
+        }
+
+        .section-number {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: var(--font-weight-black);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: var(--space-4);
+        }
+
+        .section-icon-wrapper {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-2xl);
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .section-icon-wrapper i {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: white;
+            margin-bottom: var(--space-4);
+        }
+
+        .section-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--color-slate-400);
+            font-weight: var(--font-weight-light);
+        }
+
+        /* ============================================
+           Cards
+           ============================================ */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-5);
+            margin-top: var(--space-6);
+        }
+
+        .card-grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .card-grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .card-grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .card {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            transition: all var(--transition-base);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-4);
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .card h4 {
+            color: var(--color-slate-100);
+            font-size: 1.1rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .card p, .card li {
+            font-size: 0.9rem;
+            color: var(--color-slate-400);
+            line-height: 1.7;
+        }
+
+        .card ul {
+            margin: 0;
+            padding-left: var(--space-4);
+        }
+
+        /* Card Variants */
+        .card-accent-cyan::before { background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-primary-500)); }
+        .card-accent-pink::before { background: linear-gradient(90deg, var(--color-accent-pink), var(--color-accent-rose)); }
+        .card-accent-amber::before { background: var(--gradient-warm); }
+        .card-accent-emerald::before { background: linear-gradient(90deg, var(--color-accent-emerald), #22c55e); }
+
+        .card-accent-cyan .card-icon { background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-primary-500)); }
+        .card-accent-pink .card-icon { background: linear-gradient(135deg, var(--color-accent-pink), var(--color-accent-rose)); }
+        .card-accent-amber .card-icon { background: var(--gradient-warm); }
+        .card-accent-emerald .card-icon { background: linear-gradient(135deg, var(--color-accent-emerald), #22c55e); }
+
+        /* ============================================
+           Tables
+           ============================================ */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: var(--space-6) 0;
+            font-size: 0.9rem;
+            background: var(--gradient-card);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .data-table th {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--color-slate-100);
+            padding: var(--space-4) var(--space-5);
+            text-align: left;
+            font-weight: var(--font-weight-semibold);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .data-table td {
+            padding: var(--space-3) var(--space-5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-slate-300);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* ============================================
+           Highlight Box
+           ============================================ */
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border-left: 4px solid var(--color-primary-500);
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            padding: var(--space-5) var(--space-6);
+            margin: var(--space-6) 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: var(--color-slate-200);
+        }
+
+        .highlight-box strong {
+            color: var(--color-primary-300);
+        }
+
+        /* ============================================
+           Level/Timeline Items
+           ============================================ */
+        .levels-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            margin-top: var(--space-6);
+        }
+
+        .level-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-5);
+            padding: var(--space-4) var(--space-5);
+            background: var(--gradient-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all var(--transition-base);
+        }
+
+        .level-item:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateX(8px);
+        }
+
+        .level-number {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            font-size: 0.95rem;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .level-item:nth-child(1) .level-number { background: var(--color-slate-600); }
+        .level-item:nth-child(2) .level-number { background: var(--color-primary-600); }
+        .level-item:nth-child(3) .level-number { background: var(--color-primary-500); }
+        .level-item:nth-child(4) .level-number { background: var(--color-primary-400); }
+        .level-item:nth-child(5) .level-number { background: var(--color-accent-cyan); }
+        .level-item:nth-child(6) .level-number { background: var(--color-accent-pink); }
+        .level-item:nth-child(7) .level-number { background: var(--color-accent-rose); }
+        .level-item:nth-child(8) .level-number { 
+            background: var(--gradient-accent);
+            box-shadow: var(--shadow-glow-cyan);
+        }
+
+        .level-content h4 {
+            font-size: 1.05rem;
+            color: var(--color-slate-100);
+            margin-bottom: var(--space-1);
+        }
+
+        .level-content p {
+            font-size: 0.9rem;
+            color: var(--color-slate-400);
+            margin: 0;
+        }
+
+        .level-highlight {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+            border-color: var(--color-accent-cyan);
+        }
+
+        /* ============================================
+           Value Chain
+           ============================================ */
+        .value-chain {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+
+        .value-item {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6) var(--space-4);
+            text-align: center;
+            transition: all var(--transition-base);
+            position: relative;
+        }
+
+        .value-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .value-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-4);
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .value-item:nth-child(1) .value-icon { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+        .value-item:nth-child(2) .value-icon { background: linear-gradient(135deg, #10b981, #22c55e); }
+        .value-item:nth-child(3) .value-icon { background: var(--gradient-warm); }
+        .value-item:nth-child(4) .value-icon { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+
+        .value-item h4 {
+            font-size: 1rem;
+            color: var(--color-slate-100);
+            margin-bottom: var(--space-2);
+        }
+
+        .value-item p {
+            font-size: 0.85rem;
+            color: var(--color-slate-400);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           Tech Cards
+           ============================================ */
+        .tech-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+        }
+
+        .tech-card {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .tech-card:nth-child(1)::before { background: linear-gradient(90deg, #3b82f6, #06b6d4); }
+        .tech-card:nth-child(2)::before { background: linear-gradient(90deg, #8b5cf6, #a855f7); }
+        .tech-card:nth-child(3)::before { background: var(--gradient-warm); }
+
+        .tech-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .tech-card:hover::before {
+            opacity: 1;
+        }
+
+        .tech-icon {
+            width: 88px;
+            height: 88px;
+            border-radius: var(--radius-2xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-6);
+            font-size: 2.25rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tech-card:nth-child(1) .tech-icon { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+        .tech-card:nth-child(2) .tech-icon { background: linear-gradient(135deg, #8b5cf6, #a855f7); }
+        .tech-card:nth-child(3) .tech-icon { background: var(--gradient-warm); }
+
+        .tech-card h3 {
+            font-size: 1.4rem;
+            color: var(--color-slate-50);
+            margin-bottom: var(--space-2);
+        }
+
+        .tech-desc {
+            font-size: 0.85rem;
+            color: var(--color-slate-500);
+            margin-bottom: var(--space-4);
+        }
+
+        .tech-motto {
+            display: inline-block;
+            font-size: 0.95rem;
+            font-weight: var(--font-weight-semibold);
+            padding: var(--space-2) var(--space-4);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-full);
+            color: var(--color-slate-300);
+        }
+
+        .tech-details {
+            text-align: left;
+            margin-top: var(--space-5);
+            font-size: 0.85rem;
+        }
+
+        .tech-details p {
+            margin-bottom: var(--space-2);
+            color: var(--color-slate-400);
+        }
+
+        .tech-details strong {
+            color: var(--color-slate-200);
+        }
+
+        /* ============================================
+           Structure Diagram
+           ============================================ */
+        .structure-diagram {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            margin-top: var(--space-6);
+        }
+
+        .folder-tree {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 2;
+            color: var(--color-slate-300);
+        }
+
+        .folder-tree .folder {
+            color: var(--color-accent-amber);
+        }
+
+        .folder-tree .file {
+            color: var(--color-accent-cyan);
+        }
+
+        .folder-tree .comment {
+            color: var(--color-slate-500);
+            font-style: italic;
+        }
+
+        /* ============================================
+           Roadmap
+           ============================================ */
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+
+        .roadmap-item {
+            display: flex;
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .roadmap-item:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateX(4px);
+        }
+
+        .roadmap-phase {
+            width: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-5);
+            color: white;
+            font-weight: var(--font-weight-semibold);
+            text-align: center;
+        }
+
+        .roadmap-item:nth-child(1) .roadmap-phase { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+        .roadmap-item:nth-child(2) .roadmap-phase { background: linear-gradient(135deg, #8b5cf6, #a855f7); }
+        .roadmap-item:nth-child(3) .roadmap-phase { background: var(--gradient-warm); }
+        .roadmap-item:nth-child(4) .roadmap-phase { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+
+        .roadmap-phase i {
+            font-size: 1.75rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .roadmap-content {
+            flex: 1;
+            padding: var(--space-5) var(--space-6);
+        }
+
+        .roadmap-content h4 {
+            color: var(--color-slate-100);
+            margin-bottom: var(--space-3);
+            font-size: 1.1rem;
+        }
+
+        .roadmap-content ul {
+            margin: 0;
+            padding-left: var(--space-5);
+        }
+
+        .roadmap-content li {
+            font-size: 0.9rem;
+            color: var(--color-slate-400);
+            margin-bottom: var(--space-2);
+        }
+
+        /* ============================================
+           Q&A Cards
+           ============================================ */
+        .qa-container {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+
+        .qa-card {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-left: 4px solid var(--color-accent-cyan);
+            border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+            padding: var(--space-5) var(--space-6);
+            transition: all var(--transition-base);
+        }
+
+        .qa-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            transform: translateX(4px);
+        }
+
+        .qa-card .question {
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-slate-100);
+            margin-bottom: var(--space-2);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 1.05rem;
+        }
+
+        .qa-card .question i {
+            color: var(--color-accent-cyan);
+        }
+
+        .qa-card .answer {
+            color: var(--color-slate-400);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           Summary Slide
+           ============================================ */
+        .summary-slide {
+            background: var(--color-slate-900);
+            justify-content: center;
+        }
+
+        .summary-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-glow);
+            opacity: 0.5;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            position: relative;
+            z-index: 10;
+        }
+
+        .summary-card {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8) var(--space-6);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all var(--transition-base);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .summary-card .icon {
+            width: 72px;
+            height: 72px;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-5);
+            font-size: 2rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .summary-card:nth-child(1) .icon { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+        .summary-card:nth-child(2) .icon { background: linear-gradient(135deg, #8b5cf6, #a855f7); }
+        .summary-card:nth-child(3) .icon { background: var(--gradient-warm); }
+
+        .summary-card h3 {
+            color: var(--color-slate-50);
+            font-size: 1.3rem;
+            margin-bottom: var(--space-3);
+        }
+
+        .summary-card p {
+            color: var(--color-slate-400);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           Flow Diagram
+           ============================================ */
+        .flow-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+        }
+
+        .flow-card {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+        }
+
+        .flow-card h4 {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-bottom: var(--space-5);
+            font-size: 1.15rem;
+        }
+
+        .flow-card:nth-child(1) h4 { color: var(--color-slate-400); }
+        .flow-card:nth-child(2) h4 { color: var(--color-accent-emerald); }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .flow-step {
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: var(--font-weight-medium);
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: var(--color-slate-600);
+            font-size: 0.8rem;
+            padding: var(--space-1) 0;
+        }
+
+        .flow-card:nth-child(1) .flow-step {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-slate-300);
+        }
+
+        .flow-card:nth-child(1) .flow-step.highlight {
+            background: var(--gradient-warm);
+            color: white;
+        }
+
+        .flow-card:nth-child(2) .flow-step {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--color-slate-200);
+        }
+
+        .flow-card:nth-child(2) .flow-step.ai-step {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(34, 197, 94, 0.2));
+            color: white;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .flow-card:nth-child(2) .flow-step.review-step {
+            background: var(--gradient-warm);
+            color: white;
+        }
+
+        /* ============================================
+           Best Practices Grid
+           ============================================ */
+        .practices-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-5);
+            margin-top: var(--space-6);
+        }
+
+        .practice-card {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-top: 3px solid var(--color-primary-500);
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+            padding: var(--space-6);
+            transition: all var(--transition-base);
+        }
+
+        .practice-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .practice-card h4 {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--color-primary-400);
+            margin-bottom: var(--space-4);
+        }
+
+        .practice-card ul {
+            margin: 0;
+            padding-left: var(--space-5);
+        }
+
+        .practice-card li {
+            font-size: 0.9rem;
+            color: var(--color-slate-400);
+            margin-bottom: var(--space-2);
+        }
+
+        /* ============================================
+           Fragment Animations
+           ============================================ */
+        .reveal .slides section .fragment {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .reveal .slides section .fragment.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal .slides section .fragment.fade-left {
+            transform: translateX(-30px);
+        }
+
+        .reveal .slides section .fragment.fade-left.visible {
+            transform: translateX(0);
+        }
+
+        .reveal .slides section .fragment.fade-right {
+            transform: translateX(30px);
+        }
+
+        .reveal .slides section .fragment.fade-right.visible {
+            transform: translateX(0);
+        }
+
+        .reveal .slides section .fragment.scale {
+            transform: scale(0.9);
+        }
+
+        .reveal .slides section .fragment.scale.visible {
+            transform: scale(1);
+        }
+
+        /* ============================================
+           RevealJS UI Overrides
+           ============================================ */
+        .reveal .progress {
+            background: rgba(99, 102, 241, 0.1);
+            height: 3px;
+        }
+
+        .reveal .progress span {
+            background: var(--gradient-primary);
+        }
+
+        .reveal .controls {
+            color: var(--color-primary-400);
+        }
+
+        .reveal .controls button {
+            border-radius: var(--radius-md);
+        }
+
+        .reveal .slide-number {
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-md);
+            padding: var(--space-1) var(--space-3);
+            font-size: 0.85rem;
+            color: var(--color-slate-400);
+            backdrop-filter: blur(10px);
+        }
+
+        /* ============================================
+           Responsive Design
+           ============================================ */
+        @media (max-width: 1200px) {
+            .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .value-chain { grid-template-columns: repeat(2, 1fr); }
+            .summary-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 900px) {
+            .card-grid-2,
+            .card-grid-3,
+            .tech-cards,
+            .flow-container,
+            .practices-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .reveal .slides section {
+                padding: var(--space-5);
+            }
+            
+            .roadmap-item {
+                flex-direction: column;
+            }
+            
+            .roadmap-phase {
+                width: 100%;
+                padding: var(--space-3);
+                flex-direction: row;
+                justify-content: center;
+                gap: var(--space-3);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .value-chain { grid-template-columns: 1fr; }
+            .card-grid-4 { grid-template-columns: 1fr; }
+            
+            .cover-meta {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+        }
+
+        /* ============================================
+           Print Styles
+           ============================================ */
+        @media print {
+            .reveal .slides section {
+                page-break-after: always;
+                background: white !important;
+                color: black !important;
+            }
+            
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+                color: black !important;
+                -webkit-text-fill-color: black !important;
+            }
+        }
+
+        /* ============================================
+           Utility Classes
+           ============================================ */
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-accent-cyan { color: var(--color-accent-cyan); }
+        .text-accent-pink { color: var(--color-accent-pink); }
+        .text-accent-amber { color: var(--color-accent-amber); }
+        .text-accent-emerald { color: var(--color-accent-emerald); }
+
+        .mt-4 { margin-top: var(--space-4); }
+        .mt-6 { margin-top: var(--space-6); }
+        .mt-8 { margin-top: var(--space-8); }
+        .mb-4 { margin-bottom: var(--space-4); }
+        .mb-6 { margin-bottom: var(--space-6); }
+
+        .text-center { text-align: center; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .gap-2 { gap: var(--space-2); }
+        .gap-4 { gap: var(--space-4); }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- ============================================ -->
+            <!-- 封面 -->
+            <!-- ============================================ -->
+            <section class="cover-slide" data-background-color="#020617">
+                <div class="cover-content">
+                    <div class="cover-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h1>AI 编程辅助开发</h1>
+                    <p class="cover-subtitle">Agent Skills 技术分享</p>
+                    <div class="cover-meta">
+                        <div class="cover-meta-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>2026年2月</span>
+                        </div>
+                        <div class="cover-meta-item">
+                            <i class="fas fa-microchip"></i>
+                            <span>技术分享</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 目录 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-list-ul text-gradient"></i> 内容大纲</h2>
+                <div class="card-grid card-grid-2" style="margin-top: var(--space-8);">
+                    <div class="card fragment">
+                        <div class="card-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>第一章</h4>
+                        <p class="text-accent-cyan" style="font-weight: 600; margin-bottom: var(--space-3);">AI 编程认知基础</p>
+                        <ul>
+                            <li>传统编程痛点分析</li>
+                            <li>传统 vs AI 编程对比</li>
+                            <li>AI 编程的 8 个阶段</li>
+                            <li>人机协作新范式</li>
+                        </ul>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h4>第二章</h4>
+                        <p class="text-accent-pink" style="font-weight: 600; margin-bottom: var(--space-3);">Agent Skills 核心概念</p>
+                        <ul>
+                            <li>Skills 定义与工作原理</li>
+                            <li>Prompt vs Skills vs MCP</li>
+                            <li>标准规范与文件结构</li>
+                        </ul>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4>第三章</h4>
+                        <p class="text-accent-amber" style="font-weight: 600; margin-bottom: var(--space-3);">Agent Skills 实战应用</p>
+                        <ul>
+                            <li>创建实践与方法</li>
+                            <li>前端框架 Skills</li>
+                            <li>精选 Skills 推荐</li>
+                        </ul>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #22c55e);">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4>第四章</h4>
+                        <p class="text-accent-emerald" style="font-weight: 600; margin-bottom: var(--space-3);">总结与展望</p>
+                        <ul>
+                            <li>关键要点回顾</li>
+                            <li>团队应用建议</li>
+                            <li>未来发展趋势</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 第一章节标题 -->
+            <!-- ============================================ -->
+            <section class="section-header" data-background-color="#0f172a">
+                <div class="section-number">01</div>
+                <div class="section-icon-wrapper">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2>AI 编程认知基础</h2>
+                <p class="section-subtitle">从传统编程到 AI 辅助开发的范式转变</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 传统编程痛点 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-exclamation-triangle text-accent-amber"></i> 传统编程开发的痛点</h2>
+                <p style="margin-bottom: var(--space-6);">作为开发者，经常会遇到这样的场景：</p>
+                <div class="card-grid">
+                    <div class="card fragment">
+                        <div class="card-icon">
+                            <i class="fas fa-random"></i>
+                        </div>
+                        <h4>上下文切换成本高</h4>
+                        <p>需求理解 → 技术选型 → 代码实现 → 质量验证的切换过程中，每次都要重新构建认知框架</p>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <h4>知识传递效率低</h4>
+                        <p>项目规范、架构经验分散在文档和个人经验中，新成员上手或跨模块开发时处处碰壁</p>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #f59e0b, #f97316);">
+                            <i class="fas fa-unlink"></i>
+                        </div>
+                        <h4>开发流程割裂</h4>
+                        <p>需求 → 设计 → 编码 → 审查各环节串行传递，信息易失真且反馈滞后</p>
+                    </div>
+                </div>
+                <div class="highlight-box fragment">
+                    <p><strong>核心问题：</strong>开发者需要同时扮演"架构师"和"码农"的角色，既要设计方案，又要手动实现</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 传统 vs AI 编程对比 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-exchange-alt text-gradient"></i> 传统编程 vs AI 编程</h2>
+                <p style="margin-bottom: var(--space-5);">两者代表了两种不同的软件开发范式，并非替代关系，而是互补演进</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">维度</th>
+                            <th style="width: 42.5%;">传统编程</th>
+                            <th style="width: 42.5%;">AI 编程</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="fragment">
+                            <td><strong>交互方式</strong></td>
+                            <td>代码优先，通过编程语言与计算机对话</td>
+                            <td style="color: var(--color-accent-cyan);">自然语言优先，通过描述需求与 AI 协作</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>代码来源</strong></td>
+                            <td>开发者逐行编写，依赖记忆和经验</td>
+                            <td style="color: var(--color-accent-cyan);">AI 根据需求生成，开发者审核优化</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>知识依赖</strong></td>
+                            <td>依赖开发者掌握的语言框架和 API</td>
+                            <td style="color: var(--color-accent-cyan);">AI 具备广泛知识，开发者更多扮演指导角色</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>角色定位</strong></td>
+                            <td>开发者是执行者，全程参与</td>
+                            <td style="color: var(--color-accent-emerald); font-weight: 600;">开发者是指挥者，关注决策和验收</td>
+                        </tr>
+                        <tr class="fragment">
+                            <td><strong>迭代速度</strong></td>
+                            <td>重复性代码编写耗时较长</td>
+                            <td style="color: var(--color-accent-cyan);">代码生成快，聚焦于创造性工作</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 开发流程对比 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-code-branch text-gradient"></i> 开发流程对比</h2>
+                <div class="flow-container">
+                    <div class="flow-card fragment">
+                        <h4><i class="fas fa-cog"></i> 传统编程流程</h4>
+                        <div class="flow-steps">
+                            <div class="flow-step">需求分析</div>
+                            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                            <div class="flow-step">技术设计</div>
+                            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                            <div class="flow-step highlight"><i class="fas fa-hand-paper"></i> 手动编码（核心环节）</div>
+                            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                            <div class="flow-step">单元测试 → 代码审查 → 部署</div>
+                        </div>
+                    </div>
+                    <div class="flow-card fragment">
+                        <h4><i class="fas fa-robot"></i> AI 编程流程</h4>
+                        <div class="flow-steps">
+                            <div class="flow-step">需求分析</div>
+                            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                            <div class="flow-step ai-step"><i class="fas fa-comments"></i> 自然语言描述</div>
+                            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                            <div class="flow-step ai-step"><i class="fas fa-magic"></i> AI 代码生成</div>
+                            <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                            <div class="flow-step review-step"><i class="fas fa-eye"></i> 开发者审查优化</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box fragment">
+                    <p><i class="fas fa-lightbulb text-accent-cyan"></i> <strong>关键变化：</strong>AI 编程引入迭代反馈机制："生成 → 审查 → 反馈 → 优化"的敏捷循环</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- AI 编程的 8 个阶段 - Part 1 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-layer-group text-gradient"></i> AI 编程的八个阶段</h2>
+                <p style="margin-bottom: var(--space-4); color: var(--color-slate-400);">Steve Yegge（前谷歌/亚马逊工程师）在 2026 年提出的 AI 编程成熟度模型</p>
+                <div class="levels-container">
+                    <div class="level-item fragment">
+                        <div class="level-number">1</div>
+                        <div class="level-content">
+                            <h4>古典编程</h4>
+                            <p>无 AI 辅助，纯手写代码</p>
+                        </div>
+                    </div>
+                    <div class="level-item fragment">
+                        <div class="level-number">2</div>
+                        <div class="level-content">
+                            <h4>编辑器 AI 插件</h4>
+                            <p>Copilot、Cursor 等提供代码补全和问题解答</p>
+                        </div>
+                    </div>
+                    <div class="level-item fragment">
+                        <div class="level-number">3</div>
+                        <div class="level-content">
+                            <h4>YOLO 模式</h4>
+                            <p>信任 AI，放任其产出，一路单击 Yes</p>
+                        </div>
+                    </div>
+                    <div class="level-item fragment">
+                        <div class="level-number">4</div>
+                        <div class="level-content">
+                            <h4>AI 主导开发</h4>
+                            <p>AI 工作占比大，手动编码仅用于比对代码</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- AI 编程的 8 个阶段 - Part 2 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-layer-group text-gradient"></i> AI 编程的八个阶段（续）</h2>
+                <div class="levels-container">
+                    <div class="level-item fragment">
+                        <div class="level-number">5</div>
+                        <div class="level-content">
+                            <h4>命令行模式</h4>
+                            <p>脱离编辑器，直接使用命令行，只关心完成度</p>
+                        </div>
+                    </div>
+                    <div class="level-item fragment">
+                        <div class="level-number">6</div>
+                        <div class="level-content">
+                            <h4>多 AI 并行</h4>
+                            <p>开 3-5 个 AI 窗口并行编程</p>
+                        </div>
+                    </div>
+                    <div class="level-item fragment">
+                        <div class="level-number">7</div>
+                        <div class="level-content">
+                            <h4>AI 集群</h4>
+                            <p>AI 窗口超过 10 个，达到人工管理极限</p>
+                        </div>
+                    </div>
+                    <div class="level-item level-highlight fragment">
+                        <div class="level-number">8</div>
+                        <div class="level-content">
+                            <h4>AI 任务管理器 <i class="fas fa-crown text-accent-cyan"></i></h4>
+                            <p>指挥成百上千个 AI 同时工作（Steve Yegge 所处阶段，开发了 Gas Town）</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- AI 编程的必要性 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-chart-line text-gradient"></i> 为什么需要 AI 编程辅助？</h2>
+                <div class="value-chain">
+                    <div class="value-item fragment">
+                        <div class="value-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>个人层面</h4>
+                        <p>释放创造力<br>降低记忆负担</p>
+                    </div>
+                    <div class="value-item fragment">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>团队层面</h4>
+                        <p>缩小技能差距<br>加速知识传递</p>
+                    </div>
+                    <div class="value-item fragment">
+                        <div class="value-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h4>业务层面</h4>
+                        <p>加速产品迭代<br>降低试错成本</p>
+                    </div>
+                    <div class="value-item fragment">
+                        <div class="value-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h4>行业层面</h4>
+                        <p>缓解人才短缺<br>推动生产力跃迁</p>
+                    </div>
+                </div>
+                <div class="highlight-box fragment" style="text-align: center;">
+                    <p><strong>AI 编程辅助开发不是「选项」，而是应对多重挑战的「必选项」</strong></p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- Plan 模式 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-tasks text-gradient"></i> Plan 模式：拆解复杂问题</h2>
+                <p style="margin-bottom: var(--space-6);">借鉴项目管理中的 WBS（工作分解结构）思想，将大问题拆分成小问题</p>
+                <div class="card-grid card-grid-3">
+                    <div class="card fragment" style="text-align: center;">
+                        <div style="width: 72px; height: 72px; background: linear-gradient(135deg, #3b82f6, #06b6d4); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-5);">
+                            <i class="fas fa-sitemap" style="color: white; font-size: 1.75rem;"></i>
+                        </div>
+                        <h4 style="text-align: center;">1. 需求分析与模块划分</h4>
+                        <p style="font-size: 0.95rem;">把整体需求分解为独立的功能模块</p>
+                    </div>
+                    <div class="card fragment" style="text-align: center;">
+                        <div style="width: 72px; height: 72px; background: linear-gradient(135deg, #8b5cf6, #a855f7); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-5);">
+                            <i class="fas fa-drafting-compass" style="color: white; font-size: 1.75rem;"></i>
+                        </div>
+                        <h4 style="text-align: center;">2. 技术方案设计</h4>
+                        <p style="font-size: 0.95rem;">为每个模块确定实现思路和技术选型</p>
+                    </div>
+                    <div class="card fragment" style="text-align: center;">
+                        <div style="width: 72px; height: 72px; background: var(--gradient-warm); border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-5);">
+                            <i class="fas fa-sort-amount-down" style="color: white; font-size: 1.75rem;"></i>
+                        </div>
+                        <h4 style="text-align: center;">3. 任务优先级排序</h4>
+                        <p style="font-size: 0.95rem;">根据依赖关系和重要性确定实现顺序</p>
+                    </div>
+                </div>
+                <div class="highlight-box fragment">
+                    <p><i class="fas fa-lightbulb text-accent-cyan"></i> <strong>提示词明确四件事：</strong>功能边界和目标、技术约束和规范、输出格式和交付物、分阶段的实现计划</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- AI 编程的局限性与挑战 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-exclamation-circle text-accent-amber"></i> AI 编程的局限性与挑战</h2>
+                <div class="card-grid">
+                    <div class="card card-accent-pink fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h4 style="color: var(--color-accent-pink);">需求表达不完整</h4>
+                        <p>开发者说"实现一个商家信息查询接口"，AI 生成了基础的 CRUD 代码，但没有考虑数据权限、数据脱敏、缓存策略等实际业务需求</p>
+                    </div>
+                    <div class="card card-accent-amber fragment">
+                        <div class="card-icon" style="background: var(--gradient-warm);">
+                            <i class="fas fa-memory"></i>
+                        </div>
+                        <h4 style="color: var(--color-accent-amber);">上下文管理混乱</h4>
+                        <p>对话持续多轮后，AI 开始忘记前面确定的设计决策，如"使用 MyBatis-Plus"被擅自改成 JPA Repository</p>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h4 style="color: var(--color-primary-400);">迭代反馈滞后</h4>
+                        <p>等 AI 生成完整的代码后才发现方向不对，如数据库表设计与现有架构冲突，不得不从头再来，浪费大量时间</p>
+                    </div>
+                </div>
+                <table class="data-table fragment">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">挑战</th>
+                            <th>应对方法</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>需求表达不完整</td>
+                            <td>使用 Plan 模式分阶段确认，使用 Agent Skills 沉淀需求模板</td>
+                        </tr>
+                        <tr>
+                            <td>上下文管理混乱</td>
+                            <td>控制单次对话粒度，定期回顾设计决策，使用 CLAUDE.md 传递上下文</td>
+                        </tr>
+                        <tr>
+                            <td>迭代反馈滞后</td>
+                            <td>先让 AI 生成接口定义和框架，确认后再实现细节</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 第二章节标题 -->
+            <!-- ============================================ -->
+            <section class="section-header" data-background-color="#0f172a">
+                <div class="section-number">02</div>
+                <div class="section-icon-wrapper">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <h2>Agent Skills 核心概念</h2>
+                <p class="section-subtitle">理解 Skills 的本质与技术生态</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- Skills 定义 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-book text-gradient"></i> 什么是 Agent Skills？</h2>
+                <div class="highlight-box fragment">
+                    <p>Skills 是<strong class="text-gradient">模块化的、自包含的能力包</strong>，通过提供专门的知识、工作流和工具来扩展 AI Agent 的能力。它们就像是针对特定领域或任务的<strong class="text-accent-cyan">"入职指南"</strong>，将通用的 AI Agent 转变为具备专业程序性知识的专家。</p>
+                </div>
+                <div class="card-grid card-grid-2" style="margin-top: var(--space-6);">
+                    <div class="card fragment">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h4>Skills 能提供什么</h4>
+                        <ul>
+                            <li>专业工作流：自动多步骤程序</li>
+                            <li>工具集成：处理特定文件格式或 API</li>
+                            <li>领域专业知识：公司特定的架构和业务逻辑</li>
+                            <li>打包资源：脚本、参考资料和资产</li>
+                        </ul>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #22c55e);">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4>通过 Skills 能做什么</h4>
+                        <ul>
+                            <li>封装专业知识为可复用的技能</li>
+                            <li>提供标准化的任务处理流程</li>
+                            <li>扩展 AI 处理更专业复杂任务的能力</li>
+                            <li>在团队成员间共享专业知识</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- Prompt vs Skills vs MCP -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-balance-scale text-gradient"></i> Prompt vs Skills vs MCP</h2>
+                <div class="tech-cards">
+                    <div class="tech-card fragment">
+                        <div class="tech-icon">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <h3>Prompt</h3>
+                        <p class="tech-desc">Prompt Engineering</p>
+                        <p class="tech-motto">「对话」</p>
+                        <div class="tech-details">
+                            <p><strong>关注点：</strong>如何描述需求</p>
+                            <p><strong>抽象层级：</strong>顶层交互</p>
+                            <p><strong>持久化：</strong>会话级（临时）</p>
+                        </div>
+                    </div>
+                    <div class="tech-card fragment">
+                        <div class="tech-icon" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h3>Agent Skills</h3>
+                        <p class="tech-desc">能力包</p>
+                        <p class="tech-motto">「技能手册」</p>
+                        <div class="tech-details">
+                            <p><strong>关注点：</strong>能做什么</p>
+                            <p><strong>抽象层级：</strong>中层能力</p>
+                            <p><strong>持久化：</strong>文件级（持久）</p>
+                        </div>
+                    </div>
+                    <div class="tech-card fragment">
+                        <div class="tech-icon" style="background: var(--gradient-warm);">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3>MCP</h3>
+                        <p class="tech-desc">Model Context Protocol</p>
+                        <p class="tech-motto">「USB 接口」</p>
+                        <div class="tech-details">
+                            <p><strong>关注点：</strong>如何连接</p>
+                            <p><strong>抽象层级：</strong>底层协议</p>
+                            <p><strong>持久化：</strong>服务级（持久）</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box fragment" style="text-align: center;">
+                    <p><strong>调用链路：</strong>用户 Prompt → Skills（解析意图）→ MCP（调用工具）→ 执行结果 → 返回用户</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- Skills 标准规范 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-folder-tree text-gradient"></i> Skills 标准规范</h2>
+                <p style="margin-bottom: var(--space-5);">每个 Skill 位于 <code style="background: rgba(99, 102, 241, 0.15); padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); color: var(--color-accent-cyan);">.claude/skills</code> 目录下，由 SKILL.md 和可选资源组成</p>
+                <div class="structure-diagram">
+                    <div class="folder-tree">
+                        <div><i class="fas fa-folder folder"></i> skill-name/</div>
+                        <div style="padding-left: var(--space-6);"><i class="fas fa-file file"></i> SKILL.md <span class="comment"># 必需：技能说明文档</span></div>
+                        <div style="padding-left: var(--space-6);"><i class="fas fa-folder folder"></i> scripts/ <span class="comment"># 可选：可执行脚本</span></div>
+                        <div style="padding-left: var(--space-10);"><i class="fas fa-file file"></i> example.py</div>
+                        <div style="padding-left: var(--space-10);"><i class="fas fa-file file"></i> helper.sh</div>
+                        <div style="padding-left: var(--space-6);"><i class="fas fa-folder folder"></i> references/ <span class="comment"># 可选：参考文档</span></div>
+                        <div style="padding-left: var(--space-10);"><i class="fas fa-file file"></i> schema.md</div>
+                        <div style="padding-left: var(--space-10);"><i class="fas fa-file file"></i> api_docs.md</div>
+                        <div style="padding-left: var(--space-6);"><i class="fas fa-folder folder"></i> assets/ <span class="comment"># 可选：输出资源（模板、图片等）</span></div>
+                    </div>
+                </div>
+                <div class="card-grid card-grid-3" style="margin-top: var(--space-6);">
+                    <div class="card fragment" style="text-align: center;">
+                        <i class="fas fa-code" style="font-size: 2rem; color: var(--color-accent-cyan); margin-bottom: var(--space-3);"></i>
+                        <h4 style="text-align: center;">scripts/</h4>
+                        <p style="font-size: 0.85rem;">需要确定性可靠性的可执行代码</p>
+                    </div>
+                    <div class="card fragment" style="text-align: center;">
+                        <i class="fas fa-book-open" style="font-size: 2rem; color: var(--color-primary-400); margin-bottom: var(--space-3);"></i>
+                        <h4 style="text-align: center;">references/</h4>
+                        <p style="font-size: 0.85rem;">需要时加载到上下文的文档材料</p>
+                    </div>
+                    <div class="card fragment" style="text-align: center;">
+                        <i class="fas fa-image" style="font-size: 2rem; color: var(--color-accent-amber); margin-bottom: var(--space-3);"></i>
+                        <h4 style="text-align: center;">assets/</h4>
+                        <p style="font-size: 0.85rem;">在输出中使用的文件（无需加载）</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 第三章节标题 -->
+            <!-- ============================================ -->
+            <section class="section-header" data-background-color="#0f172a">
+                <div class="section-number">03</div>
+                <div class="section-icon-wrapper">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h2>Agent Skills 实战应用</h2>
+                <p class="section-subtitle">从理论到实践的完整指南</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 创建 Skills -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-hammer text-gradient"></i> 创建 Agent Skills</h2>
+                <p style="margin-bottom: var(--space-6);">创建 Skill 有两种方式：<strong class="text-accent-cyan">手写</strong>和<strong class="text-accent-emerald">使用工具</strong></p>
+                <div class="card-grid card-grid-2">
+                    <div class="card fragment">
+                        <div class="card-icon">
+                            <i class="fas fa-hand-paper"></i>
+                        </div>
+                        <h4>手写 Skills</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: var(--space-4);">适合学习原理和创建简单技能</p>
+                        <div style="background: rgba(0,0,0,0.2); padding: var(--space-4); border-radius: var(--radius-lg); font-family: 'Consolas', monospace; font-size: 0.85rem; color: var(--color-slate-300);">
+                            my-skill/<br>
+                            └── SKILL.md  <span style="color: var(--color-slate-500);"># 必需文件</span>
+                        </div>
+                    </div>
+                    <div class="card card-accent-emerald fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #22c55e);">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h4 style="color: var(--color-accent-emerald);">使用 skill-creator</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: var(--space-4);">快速生成标准化结构，适合批量创建</p>
+                        <div style="background: rgba(0,0,0,0.2); padding: var(--space-4); border-radius: var(--radius-lg); font-family: 'Consolas', monospace; font-size: 0.85rem; color: var(--color-slate-300);">
+                            <span style="color: var(--color-slate-500);"># 通过 Claude Code 安装</span><br>
+                            /skill skill-creator<br><br>
+                            <span style="color: var(--color-slate-500);"># 启动工具</span><br>
+                            skill-creator create
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 前端框架 Skills -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fab fa-react" style="color: #61dafb;"></i> <i class="fab fa-vuejs" style="color: #42b883;"></i> 前端框架 Skills 最佳实践</h2>
+                <p style="margin-bottom: var(--space-6);">React 和 Vue 官方或社区已发布专属 Skills，标志着 AI 编程进入新阶段</p>
+                <div class="practices-grid">
+                    <div class="practice-card fragment" style="border-top-color: #61dafb;">
+                        <h4 style="color: #61dafb;"><i class="fab fa-react"></i> React Skills</h4>
+                        <ul>
+                            <li>组件设计：函数组件 + Hooks 规范</li>
+                            <li>状态管理：useState、Zustand、Redux Toolkit</li>
+                            <li>性能优化：useMemo、useCallback、代码分割</li>
+                            <li>样式方案：CSS Modules、Tailwind CSS</li>
+                        </ul>
+                    </div>
+                    <div class="practice-card fragment" style="border-top-color: #42b883;">
+                        <h4 style="color: #42b883;"><i class="fab fa-vuejs"></i> Vue Skills</h4>
+                        <ul>
+                            <li>组合式 API：script setup、ref、reactive</li>
+                            <li>响应式系统：watch、watchEffect、computed</li>
+                            <li>组件通信：props、emits、provide/inject、Pinia</li>
+                            <li>路由规范：Vue Router 配置、导航守卫</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight-box fragment">
+                    <p><i class="fas fa-lightbulb text-accent-cyan"></i> <strong>关键要点：</strong>前端官方参与 Skill 建设，意味着 AI 助手正从"代码生成器"进化为"理解框架规范、工程经验的虚拟同事"</p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 精选 Skills 推荐 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-star text-accent-amber"></i> 精选 Skills 推荐</h2>
+                <div class="card-grid">
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h4 style="color: var(--color-primary-400);">skill-creator</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: var(--space-2);">技能生成器 - Agent 的元技能</p>
+                        <p style="font-size: 0.85rem; color: var(--color-slate-500);">通过引导式对话，将想法或 SOP 自动转化为符合标准的 SKILL.md 文件</p>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4 style="color: var(--color-accent-pink);">frontend-design</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: var(--space-2);">前端设计优化</p>
+                        <p style="font-size: 0.85rem; color: var(--color-slate-500);">解决 AI 生成页面"千篇一律"的问题，提供独特字体组合和配色方案</p>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: var(--gradient-warm);">
+                            <i class="fas fa-superpowers"></i>
+                        </div>
+                        <h4 style="color: var(--color-accent-amber);">superpowers</h4>
+                        <p style="font-size: 0.9rem; margin-bottom: var(--space-2);">开发工作流框架</p>
+                        <p style="font-size: 0.85rem; color: var(--color-slate-500);">规范驱动开发（SDD），包含 brainstorm、write-plan、execute-plan 三板斧</p>
+                    </div>
+                </div>
+                <div style="margin-top: var(--space-8); text-align: center;" class="fragment">
+                    <p style="font-size: 0.95rem; color: var(--color-slate-500);">
+                        <i class="fas fa-link text-accent-cyan"></i> 
+                        更多资源：<a href="https://agentskills.io/home" target="_blank" style="color: var(--color-accent-cyan);">Agent Skills 官方主页</a> | 
+                        <a href="https://skillsmp.com/" target="_blank" style="color: var(--color-accent-cyan);">Skills MP</a> | 
+                        <a href="https://github.com/anthropics/skills" target="_blank" style="color: var(--color-accent-cyan);">Anthropic Skills 仓库</a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 第四章节标题 -->
+            <!-- ============================================ -->
+            <section class="section-header" data-background-color="#0f172a">
+                <div class="section-number">04</div>
+                <div class="section-icon-wrapper">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h2>总结与展望</h2>
+                <p class="section-subtitle">AI 编程时代的机遇与挑战</p>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 关键要点回顾 -->
+            <!-- ============================================ -->
+            <section class="summary-slide" data-background-color="#0f172a">
+                <h2 style="text-align: center;"><i class="fas fa-key text-gradient"></i> 关键要点回顾</h2>
+                <div class="summary-grid">
+                    <div class="summary-card fragment">
+                        <div class="icon" style="background: linear-gradient(135deg, #3b82f6, #06b6d4);">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>第一章</h3>
+                        <p>AI 编程不是替代开发者，而是放大开发者能力，从"执行者"向"指挥者"转变</p>
+                    </div>
+                    <div class="summary-card fragment">
+                        <div class="icon" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h3>第二章</h3>
+                        <p>Agent Skills 是封装专业知识、工作流和工具的能力单元，可与 MCP 协同</p>
+                    </div>
+                    <div class="summary-card fragment">
+                        <div class="icon" style="background: var(--gradient-warm);">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>第三章</h3>
+                        <p>Skills 可手写或用 skill-creator 创建，前端官方已积极参与 AI 编程规范建设</p>
+                    </div>
+                </div>
+                <div style="margin-top: var(--space-10); text-align: center;" class="fragment">
+                    <div style="display: inline-block; background: var(--gradient-card); padding: var(--space-5) var(--space-8); border-radius: var(--radius-xl); border: 1px solid rgba(255, 255, 255, 0.08);">
+                        <p style="color: var(--color-slate-300); margin: 0; font-size: 1.1rem;">
+                            <i class="fas fa-chart-line text-accent-cyan"></i> 
+                            能力跃迁路径：传统编程 → AI 辅助 → AI 协作 → <strong class="text-gradient">Agent 驱动</strong>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 团队应用建议 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-users-cog text-gradient"></i> 团队应用建议</h2>
+                <div class="roadmap">
+                    <div class="roadmap-item fragment">
+                        <div class="roadmap-phase">
+                            <i class="fas fa-seedling"></i>
+                            <div>起步阶段</div>
+                        </div>
+                        <div class="roadmap-content">
+                            <h4>快速上手</h4>
+                            <ul>
+                                <li>安装 AI 编程工具：Cursor、Claude Code、VSCode + Copilot</li>
+                                <li>编写 CLAUDE.md 传递项目上下文和规范</li>
+                                <li>试用官方 Skills：frontend-design、skill-creator</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-item fragment">
+                        <div class="roadmap-phase">
+                            <i class="fas fa-building"></i>
+                            <div>建设阶段</div>
+                        </div>
+                        <div class="roadmap-content">
+                            <h4>规范沉淀</h4>
+                            <ul>
+                                <li>沉淀团队规范：将编码规范、最佳实践固化为文档</li>
+                                <li>创建项目 Skills：用 skill-creator 生成项目专属 Skills</li>
+                                <li>建立反馈机制：收集 AI 编程中的问题和改进建议</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-item fragment">
+                        <div class="roadmap-phase">
+                            <i class="fas fa-rocket"></i>
+                            <div>规模化阶段</div>
+                        </div>
+                        <div class="roadmap-content">
+                            <h4>全面推广</h4>
+                            <ul>
+                                <li>分享与复用：将优秀 Skills 在团队/社区分享</li>
+                                <li>持续优化：根据项目反馈迭代 Skills 内容</li>
+                                <li>培训推广：组织培训，让更多成员掌握 AI 编程</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 避坑指南 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-shield-alt" style="color: #ef4444;"></i> 避坑指南</h2>
+                <div class="card-grid card-grid-2">
+                    <div class="card card-accent-pink fragment" style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.05), transparent);">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #ef4444, #f87171);">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <h4 style="color: #ef4444;">不要做</h4>
+                        <ul>
+                            <li>一次性让 AI 生成完整模块（容易失控）</li>
+                            <li>忽视 AI 生成代码的审查</li>
+                            <li>过度依赖 AI 而丧失独立思考能力</li>
+                        </ul>
+                    </div>
+                    <div class="card card-accent-emerald fragment" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), transparent);">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #34d399);">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4 style="color: #10b981;">应该做</h4>
+                        <ul>
+                            <li>保持对代码的主导权</li>
+                            <li>使用 Plan 模式拆解复杂问题</li>
+                            <li>持续学习和优化 Prompt 技巧</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 未来发展趋势 -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-telescope text-gradient"></i> 未来发展趋势</h2>
+                <div class="card-grid card-grid-2">
+                    <div class="card fragment">
+                        <div class="card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>专业化</h4>
+                        <p>官方 Skills 覆盖更多框架和场景</p>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h4>自动化</h4>
+                        <p>从人工编写 Skills 到 AI 自动生成 Skills</p>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: linear-gradient(135deg, #10b981, #22c55e);">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>协作化</h4>
+                        <p>Skills 市场形成，开发者可买卖共享</p>
+                    </div>
+                    <div class="card fragment">
+                        <div class="card-icon" style="background: var(--gradient-warm);">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <h4>标准化</h4>
+                        <p>行业统一的 Skills 规范和接口标准</p>
+                    </div>
+                </div>
+                <div class="highlight-box fragment">
+                    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+                        <div style="text-align: center;">
+                            <p style="font-size: 0.9rem; color: var(--color-slate-500); margin-bottom: var(--space-2);">过去</p>
+                            <p style="font-weight: 600; color: var(--color-slate-300);">程序员 = 编码执行者</p>
+                        </div>
+                        <div style="color: var(--color-primary-400); font-size: 1.5rem;">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="font-size: 0.9rem; color: var(--color-slate-500); margin-bottom: var(--space-2);">未来</p>
+                            <p style="font-weight: 600;" class="text-gradient">程序员 = AI 指挥者 + 架构设计师 + 质量把关人</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- Q&A -->
+            <!-- ============================================ -->
+            <section data-background-color="#0f172a">
+                <h2><i class="fas fa-question-circle text-gradient"></i> 常见问题 Q&A</h2>
+                <div class="qa-container">
+                    <div class="qa-card fragment">
+                        <div class="question">
+                            <i class="fas fa-question-circle"></i>
+                            AI 编程会取代程序员吗？
+                        </div>
+                        <div class="answer">不会。AI 是工具，不是替代者。AI 擅长执行重复任务，但需求理解、架构设计、代码审查仍需人类。未来的优秀程序员是那些能驾驭 AI 的人。</div>
+                    </div>
+                    <div class="qa-card fragment">
+                        <div class="question">
+                            <i class="fas fa-question-circle"></i>
+                            如何选择 AI 编程工具？
+                        </div>
+                        <div class="answer">个人/小团队：VSCode + Copilot；中型项目：Cursor；大型项目/企业：Claude Code + Skills</div>
+                    </div>
+                    <div class="qa-card fragment">
+                        <div class="question">
+                            <i class="fas fa-question-circle"></i>
+                            Skills 和 MCP 都要学吗？
+                        </div>
+                        <div class="answer">建议顺序：1. 先掌握 Prompt（入门简单）2. 再学习 Skills（提升复用性）3. 最后了解 MCP（深度集成）</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 结语 -->
+            <!-- ============================================ -->
+            <section class="cover-slide" data-background-color="#020617">
+                <div style="z-index: 10; text-align: center;">
+                    <div style="font-size: clamp(3rem, 8vw, 5rem); margin-bottom: var(--space-8); animation: float 3s ease-in-out infinite;">
+                        <i class="fas fa-rocket" style="color: var(--color-accent-cyan);"></i>
+                    </div>
+                    <h1 style="font-size: clamp(2rem, 5vw, 3rem); margin-bottom: var(--space-6);">开始你的 AI 编程之旅</h1>
+                    <p style="font-size: clamp(1.1rem, 2.5vw, 1.5rem); color: var(--color-slate-300); margin-bottom: var(--space-8); line-height: 1.8;">
+                        AI 编程时代已经到来<br>
+                        Agent Skills 是连接人类智慧与 AI 能力的桥梁
+                    </p>
+                    <div style="background: var(--gradient-card); padding: var(--space-6) var(--space-8); border-radius: var(--radius-2xl); border: 1px solid rgba(255, 255, 255, 0.08); display: inline-block;">
+                        <p style="color: var(--color-slate-300); margin: 0; font-size: 1.1rem;">
+                            <i class="fas fa-lightbulb text-accent-cyan"></i>
+                            掌握 Skills，就是掌握 AI 时代的生产力工具
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 感谢页 -->
+            <!-- ============================================ -->
+            <section class="cover-slide" data-background-color="#020617">
+                <div style="z-index: 10; text-align: center;">
+                    <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: var(--space-8);">感谢聆听</h1>
+                    <p style="font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--color-slate-400);">Questions & Discussion</p>
+                    <div style="margin-top: var(--space-12); color: var(--color-slate-600);">
+                        <p><i class="fas fa-envelope" style="margin-right: var(--space-2);"></i> 欢迎交流讨论</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- RevealJS -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+    <script>
+        // Initialize RevealJS
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            showSlideNumber: 'all',
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            center: false,
+            width: 1280,
+            height: 720,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0,
+            fragments: true,
+            fragmentInURL: true,
+            keyboard: true,
+            overview: true,
+            touch: true,
+            progress: true,
+            history: true,
+            // Accessibility
+            help: true,
+            // Disable automatic animation for reduced motion preference
+            respectPrefersReducedMotion: true
+        });
+
+        // Keyboard shortcuts help
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '?' && !e.ctrlKey && !e.metaKey) {
+                e.preventDefault();
+                alert('快捷键说明：\n\n' +
+                      '导航：\n' +
+                      '  → 或 ↓ 或 Space: 下一张\n' +
+                      '  ← 或 ↑: 上一张\n' +
+                      '  Home: 第一张\n' +
+                      '  End: 最后一张\n\n' +
+                      '视图：\n' +
+                      '  Esc: 概览模式\n' +
+                      '  F: 全屏\n' +
+                      '  ?: 显示快捷键帮助');
+            }
+        });
+
+        // Track slide changes for analytics (optional)
+        Reveal.on('slidechanged', function(event) {
+            // Event.indexh, event.indexv contain the slide indices
+            // Event.previousSlide, event.currentSlide contain the slide elements
+            console.log('Slide changed to:', event.indexh, event.indexv);
+        });
+    </script>
+</body>
+</html>
